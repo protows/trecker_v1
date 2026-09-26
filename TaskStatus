@@ -1,0 +1,7 @@
+package lessons_2.trecker;
+
+public enum TaskStatus {
+    NEW,
+    IN_PROGRESS,
+    DONE
+}
