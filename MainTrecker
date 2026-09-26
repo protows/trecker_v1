@@ -1,0 +1,126 @@
+package lessons_2.trecker;
+import java.util.Scanner;
+import java.util.Map;
+import java.util.ArrayList;
+//https://github.com/practicetasks/java-task-tracker
+
+public class MainTrecker {
+    public static void main(String[] args) {
+        System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
+        TaskManager taskManager = new TaskManager();
+        Scanner scanner = new Scanner(System.in); 
+
+        // 1. Создаем эпик правильно через менеджер
+        Epic epic_v1 = new Epic("Epic_1", "description_epic_1", taskManager.getGeneratorId(), TaskStatus.NEW);
+        taskManager.createEpic(epic_v1); // Сохраняем эпик в менеджер (ID сгенерируется внутри)
+
+        // 2. Создаем подзадачу для этого эпика
+        int subtaskId = taskManager.getGeneratorId();
+        Subtask subtask_v1 = new Subtask("SubTask_1", "subTaskDescription_1", subtaskId, TaskStatus.NEW, epic_v1.getTaskid());
+        
+        taskManager.createSubtask(subtaskId, subtask_v1);
+        
+        // Привязываем подзадачу к эпику (добавляем её ID в список эпика)
+        epic_v1.getAllIdsSubsTaksOfEpic().add(subtaskId);
+
+        while (true) {
+            printMenu();
+            int command = scanner.nextInt();
+            
+            if (command == 1) {
+                System.out.println("Введите номер подзадачи:");
+                int numTask = scanner.nextInt();
+                Task cur = taskManager.getSubtaskById(numTask);
+                if (cur != null) {
+                    System.out.println("res: " + cur.getName() + "; status: " + cur.getStatus());
+                } else {
+                    System.out.println("Подзадача не найдена.");
+                }
+            } 
+            else if (command == 2) {
+                int createId;
+                while (true) {
+                    System.out.println("Введите номер id для новой подзадачи:");
+                    createId = scanner.nextInt();
+                    if (taskManager.getSubtaskById(createId) != null || taskManager.getEpicById(createId) != null) {
+                        System.out.println("id уже занято!");
+                    } else {
+                        break;
+                    }
+                }
+                
+                System.out.println("Введите номер эпика, к которому относится подзадача:");
+                int numEpic = scanner.nextInt();
+                scanner.nextLine(); // Очищаем буфер после nextInt()
+                
+                Epic epic = taskManager.getEpicById(numEpic);
+                if (epic == null) {
+                    System.out.println("Эпик с таким номером не найден!");
+                    continue;
+                }
+
+                System.out.println("Введите имя подзадачи:");
+                String nameSubTask = scanner.nextLine();
+                
+                System.out.println("Введите описание подзадачи:");
+                String descSubTask = scanner.nextLine();
+
+                // Создаем и сохраняем новую подзадачу
+                Subtask newSubtask = new Subtask(nameSubTask, descSubTask, createId, TaskStatus.NEW, numEpic);
+                taskManager.createSubtask(createId, newSubtask);
+                epic.getAllIdsSubsTaksOfEpic().add(createId);
+                
+                System.out.println("Подзадача успешно создана!");
+            } 
+            else if (command == 3) {
+                System.out.println("Введите номер подзадачи для обновления статуса:");
+                int updateSubTaskId = scanner.nextInt();
+                scanner.nextLine(); // Очищаем буфер
+                
+                System.out.println("Какой статус установить: NEW, IN_PROGRESS, DONE");
+                String updateSubTaskStatus = scanner.nextLine();
+                
+                try {
+                    TaskStatus newStatus = TaskStatus.valueOf(updateSubTaskStatus.toUpperCase());
+                    taskManager.updateSubtask(updateSubTaskId, newStatus);
+                    System.out.println("Статус подзадачи обновлен.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Неверный статус!");
+                }
+            } 
+            else if (command == 4) {
+                System.out.println("Введите номер подзадачи для удаления:");
+                int taskId = scanner.nextInt();
+                taskManager.deleteSubtaskById(taskId);
+                System.out.println("Подзадача удалена (если существовала).");
+            } 
+            else if (command == 5) {
+                ArrayList<Subtask> allSubs = taskManager.getAllSubtasks();
+                System.out.println("Список всех подзадач: " + allSubs);
+            } 
+            else if (command == 6) {
+                taskManager.deleteAllSubtasks();
+                System.out.println("Все подзадачи удалены.");
+            } 
+            else if (command == 7) {
+                System.out.println("Вы вышли из программы.");
+                break;
+            } 
+            else {
+                System.out.println("Неверная команда, попробуйте снова.");
+            }
+        }
+    }
+    
+    public static void printMenu() {
+        System.out.println("\n--- МЕНЮ ТРЕКЕРА ---");
+        System.out.println("1 - Получить подзадачу");
+        System.out.println("2 - Создать подзадачу");
+        System.out.println("3 - Обновить статус подзадачи");
+        System.out.println("4 - Удалить подзадачу по id");
+        System.out.println("5 - Получить все подзадачи");
+        System.out.println("6 - Удалить все подзадачи");
+        System.out.println("7 - Выход (Quit)");
+        System.out.print("Выберите пункт меню: ");
+    }
+}
