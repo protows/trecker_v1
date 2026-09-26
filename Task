@@ -1,0 +1,39 @@
+package lessons_2.trecker;
+
+public class Task {
+    private String name;
+    private String description;
+    private Integer taskid;
+    private TaskStatus status;
+    
+    public Task(String name, String description, int taskid, TaskStatus status) {
+        this.name = name;
+        this.description = description;
+        this.taskid = taskid;
+        this.status = status;
+    }
+
+    public void setTaskid(Integer taskid) {
+        this.taskid = taskid;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Integer getTaskid() {
+        return taskid;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+}
