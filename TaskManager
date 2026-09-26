@@ -1,0 +1,179 @@
+package lessons_2.trecker;
+
+import java.util.HashMap;
+import java.util.ArrayList;
+
+public class TaskManager {
+    private HashMap<Integer, Task> tasks;
+    private HashMap<Integer, Epic> epics;
+    private HashMap<Integer, Subtask> subtasks;
+    private int generatorId=1;
+    
+    public TaskManager() {
+        tasks = new HashMap<>();
+        epics = new HashMap<>();
+        subtasks = new HashMap<>();
+    }
+    
+    // --- Методы для обычных задач ---
+    public ArrayList<Task> getAllTasks() { 
+        return new ArrayList<>(tasks.values());
+     }
+    public void deleteAllTasks() {
+        tasks.clear();
+    }
+    public Task getTaskById(int id) { 
+        if (tasks.get(id)!=null){
+             return tasks.get(id);
+        }else{
+            return null; 
+        }
+    } 
+    public void createTask(Task task) {
+        int id = getGeneratorId();
+        task.setTaskid(id);
+        tasks.put(id, task);   
+    }
+    public void updateTask(Task task) {
+        if (task == null) {
+            return;
+        }
+        int id = task.getTaskid();
+        if (tasks.containsKey(id)) {
+        tasks.put(id, task);
+        }
+    }
+    public void deleteTaskById(int id) {
+        if (tasks.containsKey(id)) {
+        tasks.remove(id);
+        }
+    }
+    
+    public void removeAllTasks(){
+        tasks.clear();
+    }
+
+    // --- Методы для эпиков ---
+    public void removeAllEpics(){
+        epics.clear();
+    }
+    public ArrayList<Epic> getAllEpics(){
+         return new ArrayList<>(epics.values()); 
+     }
+    
+    public Epic getEpicById(int id){
+        return epics.get(id);
+    }
+     
+   public void updateEpic(Epic epic){
+       if (epic == null) {
+            return;
+        }
+        int id = epic.getTaskid();
+        if (epics.containsKey(id)) {
+            epics.put(id, epic);
+        }
+   }
+   public void removeEpicById(int id){
+       epics.remove(id);
+   }
+   
+   public void createEpic(Epic epic) {
+    int id = getGeneratorId();
+    epic.setTaskid(id);
+    epics.put(id, epic);
+}
+
+    // --- Методы для подзадач -------------------
+    public ArrayList<Subtask> getAllSubtasks( ) { 
+       
+        if(subtasks !=null){
+            return new ArrayList<>(subtasks.values());
+        }else{
+            return new ArrayList<>();
+        }
+        
+    }
+    public void deleteAllSubtasks() {
+        subtasks.clear();
+ 
+    }
+    public Subtask getSubtaskById(int id) { 
+        if (subtasks.get(id) != null){
+            return subtasks.get(id);
+        }else{
+            return null;
+        }
+    }
+    public void createSubtask(Integer idSubTask, Subtask subtask) {
+        subtasks.put(idSubTask, subtask);
+    }
+    public void updateSubtask(Integer idSubtask, TaskStatus status) {
+        Subtask subtask = subtasks.get(idSubtask);
+        if(subtask !=null){
+            subtask.setStatus(status);
+            getSubtasksOfEpic(subtask.getEpicId());
+        }
+        
+    }
+    public void deleteSubtaskById(int id) {
+        subtasks.remove(id);
+    }
+    
+    public ArrayList<Subtask> getSubtasksOfEpic(int epicId) { 
+         Epic epic = epics.get(epicId);
+        if (epic == null) {
+            return new ArrayList<>();
+        } 
+        ArrayList<Subtask> result = new ArrayList<>();
+        for (Integer subtaskId : epic.getAllIdsSubsTaksOfEpic()) {
+            Subtask subtask = subtasks.get(subtaskId);
+            if (subtask != null) {
+                result.add(subtask);
+            }
+        }
+        return result;
+    }
+    
+    private void updateEpicStatus(Epic epic) {
+    ArrayList<Integer> subtaskIds = epic.getAllIdsSubsTaksOfEpic();
+        if (subtaskIds.isEmpty()) {
+        epic.setStatus(TaskStatus.NEW);
+        return;
+    } 
+    boolean allNew = true;
+    boolean allDone = true;
+    for (int id : subtaskIds) {
+        Subtask subtask = subtasks.get(id);
+        if (subtask != null) {
+            TaskStatus status = subtask.getStatus();
+            
+            if (status != TaskStatus.NEW) {
+                allNew = false;
+            }
+            if (status != TaskStatus.DONE) {
+                allDone = false;
+            }
+        }
+    }
+
+    if (allNew) {
+        epic.setStatus(TaskStatus.NEW);
+    } else if (allDone) {
+        epic.setStatus(TaskStatus.DONE);
+    } else {
+        epic.setStatus(TaskStatus.IN_PROGRESS);
+    }
+}
+    
+      public int getGeneratorId(){
+        generatorId+=1;
+        return generatorId;
+    }
+      
+    
+}
+
+
+
+
