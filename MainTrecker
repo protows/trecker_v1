@@ -1,6 +1,5 @@
-package lessons_2.trecker;
+package trecker.v1;
 import java.util.Scanner;
-import java.util.Map;
 import java.util.ArrayList;
 //https://github.com/practicetasks/java-task-tracker
 
@@ -11,12 +10,12 @@ public class MainTrecker {
         Scanner scanner = new Scanner(System.in); 
 
         // 1. Создаем эпик правильно через менеджер
-        Epic epic_v1 = new Epic("Epic_1", "description_epic_1", taskManager.getGeneratorId(), TaskStatus.NEW);
+        Epic epic_v1 = new Epic("Epic_1", "description_epic_1", TaskStatus.NEW);
         taskManager.createEpic(epic_v1); // Сохраняем эпик в менеджер (ID сгенерируется внутри)
 
         // 2. Создаем подзадачу для этого эпика
-        int subtaskId = taskManager.getGeneratorId();
-        Subtask subtask_v1 = new Subtask("SubTask_1", "subTaskDescription_1", subtaskId, TaskStatus.NEW, epic_v1.getTaskid());
+        int subtaskId = taskManager.getCurrentGeneratorId();
+        Subtask subtask_v1 = new Subtask("SubTask_1", "subTaskDescription_1", TaskStatus.NEW, epic_v1.getTaskid());
         
         taskManager.createSubtask(subtaskId, subtask_v1);
         
@@ -66,7 +65,7 @@ public class MainTrecker {
                 String descSubTask = scanner.nextLine();
 
                 // Создаем и сохраняем новую подзадачу
-                Subtask newSubtask = new Subtask(nameSubTask, descSubTask, createId, TaskStatus.NEW, numEpic);
+                Subtask newSubtask = new Subtask(nameSubTask, descSubTask, TaskStatus.NEW, numEpic);
                 taskManager.createSubtask(createId, newSubtask);
                 epic.getAllIdsSubsTaksOfEpic().add(createId);
                 
@@ -104,7 +103,7 @@ public class MainTrecker {
             } 
             else if (command == 7) {
                 System.out.println("Вы вышли из программы.");
-                break;
+               break;
             } 
             else {
                 System.out.println("Неверная команда, попробуйте снова.");
