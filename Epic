@@ -1,12 +1,12 @@
-package lessons_2.trecker;
+package trecker.v1;
 import java.util.ArrayList;
 
 public class Epic extends Task {
     
     private ArrayList<Integer> subtaskIds = new ArrayList<>();; // Списка идентификаторов подзадач
     
-    public Epic(String name, String description, Integer epicId, TaskStatus status) {
-       super(name, description,epicId, status);
+    public Epic(String name, String description, TaskStatus status) {
+       super(name, description, status);
        this.subtaskIds = new ArrayList<>();
     }
   
