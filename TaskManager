@@ -1,5 +1,4 @@
-package lessons_2.trecker;
-
+package trecker.v1;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -30,7 +29,10 @@ public class TaskManager {
         }
     } 
     public void createTask(Task task) {
-        int id = getGeneratorId();
+        int id = generatorId++;
+        if(tasks.containsKey(id)){
+            return;
+        }
         task.setTaskid(id);
         tasks.put(id, task);   
     }
@@ -79,7 +81,10 @@ public class TaskManager {
    }
    
    public void createEpic(Epic epic) {
-    int id = getGeneratorId();
+    int id = generatorId++;
+    if(epics.containsKey(id)){
+        return;
+    }
     epic.setTaskid(id);
     epics.put(id, epic);
 }
@@ -165,15 +170,15 @@ public class TaskManager {
         epic.setStatus(TaskStatus.IN_PROGRESS);
     }
 }
+
+//      public int getGeneratorId(){
+//        generatorId+=1;
+//        return generatorId;
+//    }
     
-      public int getGeneratorId(){
-        generatorId+=1;
+    public int getCurrentGeneratorId(){
         return generatorId;
     }
       
     
 }
-
-
-
-
