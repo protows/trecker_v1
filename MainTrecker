@@ -63,6 +63,8 @@ public class MainTrecker {
                 
                 System.out.println("Введите описание подзадачи:");
                 String descSubTask = scanner.nextLine();
+                
+                
 
                 // Создаем и сохраняем новую подзадачу
                 Subtask newSubtask = new Subtask(nameSubTask, descSubTask, TaskStatus.NEW, numEpic);
@@ -75,13 +77,30 @@ public class MainTrecker {
                 System.out.println("Введите номер подзадачи для обновления статуса:");
                 int updateSubTaskId = scanner.nextInt();
                 scanner.nextLine(); // Очищаем буфер
+                System.out.println("Введите имя подзадачи:");
+                String nameSubTask = scanner.nextLine();
+                scanner.nextLine(); // Очищаем буфер
+
+                System.out.println("Введите описание подзадачи:");
+                String descSubTask = scanner.nextLine();
+                
+                System.out.println("Введите номер эпика, к которому относится подзадача:");
+                int numEpic = scanner.nextInt();
+                scanner.nextLine(); // Очищаем буфер после nextInt()
+                
+                Epic epic = taskManager.getEpicById(numEpic);
+                if (epic == null) {
+                    System.out.println("Эпик с таким номером не найден!");
+                    continue;
+                }
                 
                 System.out.println("Какой статус установить: NEW, IN_PROGRESS, DONE");
                 String updateSubTaskStatus = scanner.nextLine();
+                Subtask newSubtask = new Subtask(nameSubTask, descSubTask, TaskStatus.NEW, numEpic);
                 
                 try {
                     TaskStatus newStatus = TaskStatus.valueOf(updateSubTaskStatus.toUpperCase());
-                    taskManager.updateSubtask(updateSubTaskId, newStatus);
+                    taskManager.updateSubtask(updateSubTaskId, newStatus,newSubtask);
                     System.out.println("Статус подзадачи обновлен.");
                 } catch (IllegalArgumentException e) {
                     System.out.println("Неверный статус!");
