@@ -95,7 +95,8 @@ public class TaskManager {
     ////////// moved
      public void  addSubtaskId(Integer epicid, Integer idSubTask){
         Epic epic = epics.get(epicid);
-        epic.setEpic(idSubTask); 
+        epics.get(epicid).getAllIdsSubsTaksOfEpic().add(idSubTask);
+        //epic.setEpic(idSubTask); 
     } 
      
     public void  removeSubtaskId(Integer epicid, Integer id){
