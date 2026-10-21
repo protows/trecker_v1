@@ -10,11 +10,11 @@ public class Epic extends Task {
        this.subtaskIds = new ArrayList<>();
     }
     
-    public void doUpdateEpic(String name, String description,TaskStatus status){
-        this.setName(name); 
-        this.setDescription(description);
-        this.setStatus(status);
-    }
+//    public void doUpdateEpic(String name, String description,TaskStatus status){
+//        this.setName(name); 
+//        this.setDescription(description);
+//        this.setStatus(status);
+//    }
   
 //    public void setSubtaskIds(ArrayList<Integer> subtaskIds) {
 //        this.subtaskIds = subtaskIds;
