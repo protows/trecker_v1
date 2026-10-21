@@ -17,7 +17,7 @@ public class MainTrecker {
         int subtaskId = taskManager.getCurrentGeneratorId();
         Subtask subtask_v1 = new Subtask("SubTask_1", "subTaskDescription_1", TaskStatus.NEW, epic_v1.getTaskid());
         
-        taskManager.createSubtask(subtaskId, subtask_v1);
+        taskManager.createSubtask(subtask_v1);
         
         // Привязываем подзадачу к эпику (добавляем её ID в список эпика)
         epic_v1.getAllIdsSubsTaksOfEpic().add(subtaskId);
@@ -68,7 +68,7 @@ public class MainTrecker {
 
                 // Создаем и сохраняем новую подзадачу
                 Subtask newSubtask = new Subtask(nameSubTask, descSubTask, TaskStatus.NEW, numEpic);
-                taskManager.createSubtask(createId, newSubtask);
+                taskManager.createSubtask(newSubtask);
                 epic.getAllIdsSubsTaksOfEpic().add(createId);
                 
                 System.out.println("Подзадача успешно создана!");
