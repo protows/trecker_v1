@@ -25,13 +25,13 @@ public class Epic extends Task {
         return subtaskIds;
     }
     
-    public int  getEpic(int id){
-        return subtaskIds.get(id);
-    }
-    
-    public void setEpic(int id){
-        subtaskIds.add(id);
-    }
+//    public int  getEpic(int id){
+//        return subtaskIds.get(id);
+//    }
+//    
+//    public void setEpic(int id){
+//        subtaskIds.add(id);
+//    }
     
     
     
