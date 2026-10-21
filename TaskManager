@@ -130,8 +130,9 @@ public class TaskManager {
             return null;
         }
     }
-    public void createSubtask(Integer idSubTask, Subtask subtask) {
-        subtasks.put(idSubTask, subtask);
+    public void createSubtask(Subtask subtask) {
+        int idSubTask2 = generatorId++;
+        subtasks.put(idSubTask2, subtask);
     }
     public void updateSubtask(Integer idSubtask, TaskStatus status, Subtask subtaskItem) {
         Subtask subtask = subtasks.get(idSubtask);
