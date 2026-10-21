@@ -21,6 +21,8 @@ public class MainTrecker {
         
         // Привязываем подзадачу к эпику (добавляем её ID в список эпика)
         epic_v1.getAllIdsSubsTaksOfEpic().add(subtaskId);
+        
+        taskManager.addSubtaskId(epic_v1.getTaskid());
 
         while (true) {
             printMenu();
