@@ -17,8 +17,25 @@ public class Task {
         this.status = TaskStatus.NEW;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void doUpdateTask(String name, String description,TaskStatus status){
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+            
     public void setTaskid(int taskid) {
-        this.taskid = taskid;
+        if(taskid!=0){
+            this.taskid = taskid;
+        }
+        
     }
 
     public void setStatus(TaskStatus status) {
