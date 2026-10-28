@@ -4,7 +4,7 @@ import java.util.ArrayList;
 //https://github.com/practicetasks/java-task-tracker
 
 public class MainTrecker {
-    public static void main(String[] args) {
+    public static void removeMain2(String[] args) {
         System.setOut(new java.io.PrintStream(System.out, true, java.nio.charset.StandardCharsets.UTF_8));
         TaskManager taskManager = new TaskManager();
         Scanner scanner = new Scanner(System.in); 
@@ -102,7 +102,7 @@ public class MainTrecker {
                 
                 try {
                     TaskStatus newStatus = TaskStatus.valueOf(updateSubTaskStatus.toUpperCase());
-                    taskManager.updateSubtask(updateSubTaskId, newStatus,newSubtask);
+                    //taskManager.updateSubtask(updateSubTaskId, newStatus,newSubtask);
                     System.out.println("Статус подзадачи обновлен.");
                 } catch (IllegalArgumentException e) {
                     System.out.println("Неверный статус!");
