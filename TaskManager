@@ -138,15 +138,22 @@ public class TaskManager {
         int idSubTask2 = generatorId++;
         subtasks.put(idSubTask2, subtask);
     }
-    public void updateSubtask(Integer idSubtask, TaskStatus status, Subtask subtaskItem) {
-        Subtask subtask = subtasks.get(idSubtask);
-        if(subtask !=null){
+    public void updateSubtask(Subtask subTaskItem) {
+    //public void updateSubtask(Integer idSubtask, TaskStatus status, Subtask subtaskItem) {
+    if (subTaskItem == null) {
+        return;
+    }
+
+    // 1. Get the ID from the passed subtask (using getTaskid() based on your naming)
+    int id = subTaskItem.getTaskid();
+        //Subtask subtask = subtasks.get(generatorId);
+        //if(subtask !=null){
             //subtask.setStatus(status);
-            Subtask subtask2 = new Subtask(subtask.getName(), subtask.getDescription(), subtask.getEpicId());
-            subtasks.put(subtask.getEpicId(), subtask2);
+            //Subtask subtask2 = new Subtask(subtask.getName(), subtask.getDescription(), subtask.getEpicId());
+            subtasks.put(id, subTaskItem);
 
             //getSubtasksOfEpic(subtask.getEpicId());
-        }
+        //}
         
     }
     public void deleteSubtaskById(int id) {
