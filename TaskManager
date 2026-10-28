@@ -23,11 +23,8 @@ public class TaskManager {
         tasks.clear();
     }
     public Task getTaskById(int id) { 
-        if (tasks.get(id)!=null){
-             return tasks.get(id);
-        }else{
-            return null; 
-        }
+       return tasks.get(id);
+
     } 
     public void createTask(Task task) {
         int id = generatorId++;
@@ -128,11 +125,7 @@ public class TaskManager {
  
     }
     public Subtask getSubtaskById(int id) { 
-        if (subtasks.get(id) != null){
-            return subtasks.get(id);
-        }else{
-            return null;
-        }
+        return subtasks.get(id);
     }
     public void createSubtask(Subtask subtask) {
         int idSubTask2 = generatorId++;
