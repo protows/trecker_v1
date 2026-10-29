@@ -35,13 +35,9 @@ public class TaskManager {
         tasks.put(id, task);   
     }
     public void updateTask(Task task) {
-        if (task == null) {
-            return;
-        }
         int id = task.getTaskid();
         if (tasks.containsKey(id)) {
-            Task task2 = new Task(task.getName(), task.getDescription(), task.getStatus());
-            tasks.put(id, task2);
+            tasks.put(id, task);
         }
     }
     public void deleteTaskById(int id) {
@@ -50,10 +46,6 @@ public class TaskManager {
         }
     }
     
-    public void removeAllTasks(){
-        tasks.clear();
-    }
-
     // --- Методы для эпиков ---
     public void removeAllEpics(){
         epics.clear();
@@ -67,13 +59,9 @@ public class TaskManager {
     }
      
    public void updateEpic(Epic epic){
-       if (epic == null) {
-            return;
-        }
         int id = epic.getTaskid();
         if (epics.containsKey(id)) {
-            Epic epic2 = new Epic(epic.getName(), epic.getDescription(), epic.getStatus());
-            epics.put(id, epic2);
+            epics.put(id, epic);
         }
    }
    public void removeEpicById(int id){
@@ -89,21 +77,16 @@ public class TaskManager {
     epics.put(id, epic);
    }
     
-    ////////// moved
+    ////////// Epic - subtaskIds
      public void  addSubtaskId(Integer epicid){
          
         Epic epic = epics.get(epicid);
         epics.get(epicid).getAllIdsSubsTaksOfEpic().add(generatorId);
         //epic.setEpic(idSubTask); 
     } 
-     
-           
-
-     
     public void  removeSubtaskId(Integer epicid, Integer id){
         epics.remove(id);
-    }
-    
+    } 
      public void clearSubtaskIds(Integer epicid, Integer id){
          epics.clear();
     }
@@ -128,26 +111,12 @@ public class TaskManager {
         return subtasks.get(id);
     }
     public void createSubtask(Subtask subtask) {
-        int idSubTask2 = generatorId++;
+        int idSubTask2 = subtask.getTaskid();
         subtasks.put(idSubTask2, subtask);
     }
     public void updateSubtask(Subtask subTaskItem) {
-    //public void updateSubtask(Integer idSubtask, TaskStatus status, Subtask subtaskItem) {
-    if (subTaskItem == null) {
-        return;
-    }
-
-    // 1. Get the ID from the passed subtask (using getTaskid() based on your naming)
-    int id = subTaskItem.getTaskid();
-        //Subtask subtask = subtasks.get(generatorId);
-        //if(subtask !=null){
-            //subtask.setStatus(status);
-            //Subtask subtask2 = new Subtask(subtask.getName(), subtask.getDescription(), subtask.getEpicId());
-            subtasks.put(id, subTaskItem);
-
-            //getSubtasksOfEpic(subtask.getEpicId());
-        //}
-        
+        int id = subTaskItem.getTaskid();
+            subtasks.put(id, subTaskItem);        
     }
     public void deleteSubtaskById(int id) {
         subtasks.remove(id);
