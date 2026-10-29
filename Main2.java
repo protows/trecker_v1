@@ -31,11 +31,11 @@ public class Main2 {
         System.out.println("\nПосле создания:");
         printAll(manager);
 
-       // System.out.println("Детей переезда: " + manager.getEpicSubtasks(move.getId()).size());
-       // System.out.println("Детей учёбы: " + manager.getEpicSubtasks(study.getId()).size());
+        System.out.println("Детей переезда: " + manager.getSubtasksOfEpic(move.getTaskid()).size());
+        System.out.println("Детей учёбы: " + manager.getSubtasksOfEpic(study.getTaskid()).size());
 
         Task updatedPractice = new Task(practice.getName(), practice.getDescription(), TaskStatus.IN_PROGRESS);
-        //updatedPractice.setId(practice.getTaskid());
+        updatedPractice.setTaskid(practice.getTaskid());
         manager.updateTask(updatedPractice);
 
         Subtask updatedBoxes = new Subtask(boxes.getName(), boxes.getDescription(), TaskStatus.DONE, boxes.getEpicId());
@@ -59,7 +59,7 @@ public class Main2 {
         System.out.println("\nВсе шаги переезда выполнены: " + manager.getEpicById(move.getTaskid()).getStatus());
 
         Epic renamed = new Epic("Переезд в квартиру", "Уточнённый план", TaskStatus.NEW, new ArrayList<>());
-        //renamed.setId(move.getTaskid());
+        renamed.setTaskid(move.getTaskid());
         manager.updateEpic(renamed);
 
         System.out.println("После переименования: " + manager.getEpicById(move.getTaskid()));
