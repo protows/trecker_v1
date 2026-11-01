@@ -11,7 +11,7 @@ public class Main2 {
         Task practice = new Task("Практика", "Работа над трекером");
         Task lecture = new Task("Лекция", "Повторить наследование");
 
-        manager.createTask(practice); // id - 1
+        manager.createTask(practice); 
         manager.createTask(lecture);
 
         Epic move = new Epic("Переезд", "Подготовить переезд");
