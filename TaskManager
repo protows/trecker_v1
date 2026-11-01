@@ -78,20 +78,20 @@ public class TaskManager {
    }
     
     ////////// Epic - subtaskIds
-     public void  addSubtaskId(Integer epicid){
-         
-        Epic epic = epics.get(epicid);
-        epics.get(epicid).getAllIdsSubsTaksOfEpic().add(generatorId);
-        //epic.setEpic(idSubTask); 
+     public void  addSubtaskId(Integer subTaskid, Integer epicid){
+        epics.get(epicid).getAllIdsSubsTaksOfEpic().add(subTaskid);
     } 
     public void  removeSubtaskId(Integer epicid, Integer id){
-        epics.remove(id);
+        epics.get(epicid).getAllIdsSubsTaksOfEpic().remove(id);
     } 
-     public void clearSubtaskIds(Integer epicid, Integer id){
-         epics.clear();
+     public void clearSubtaskIds(Integer epicid){
+         Epic epic = epics.get(epicid);
+         if(epic!=null){
+              epics.get(epicid).getAllIdsSubsTaksOfEpic().clear();
+         }
+        
     }
     /////////
-
 
     // --- Методы для подзадач -------------------
     public ArrayList<Subtask> getAllSubtasks( ) { 
@@ -104,22 +104,36 @@ public class TaskManager {
         
     }
     public void deleteAllSubtasks() {
+        for(Epic epic2: epics.values()){
+             epic2.getAllIdsSubsTaksOfEpic().clear();
+             updateEpicStatus(epic2);
+        }
         subtasks.clear();
- 
     }
+       
     public Subtask getSubtaskById(int id) { 
         return subtasks.get(id);
     }
     public void createSubtask(Subtask subtask) {
-        int idSubTask2 = subtask.getTaskid();
-        subtasks.put(idSubTask2, subtask);
+        int id = generatorId++; // Генерируем уникальный ID
+        if (subtasks.containsKey(id)) {
+            return;
+        }
+        subtask.setTaskid(id);
+        subtasks.put(id, subtask);
+        addSubtaskId(id, subtask.getEpicId());
     }
     public void updateSubtask(Subtask subTaskItem) {
         int id = subTaskItem.getTaskid();
-            subtasks.put(id, subTaskItem);        
+        subtasks.put(id, subTaskItem);
+        Epic epic = new Epic(subTaskItem.getName(), subTaskItem.getDescription(), subTaskItem.getStatus());
+        updateEpicStatus(epic);
     }
-    public void deleteSubtaskById(int id) {
-        subtasks.remove(id);
+    public void deleteSubtaskById(Subtask subTaskItem) {
+        removeSubtaskId(subTaskItem.getTaskid(), subTaskItem.getEpicId());
+        Epic epic2 = epics.get(subTaskItem.getEpicId());
+        updateEpicStatus(epic2);
+        subtasks.remove(subTaskItem.getTaskid());
     }
     
     public ArrayList<Subtask> getSubtasksOfEpic(int epicId) { 
@@ -168,11 +182,6 @@ public class TaskManager {
     }
 }
 
-//      public int getGeneratorId(){
-//        generatorId+=1;
-//        return generatorId;
-//    }
-    
     public int getCurrentGeneratorId(){
         return generatorId;
     }
