@@ -1,4 +1,4 @@
- package trecker.v1;
+package trecker.v1;
 public class Subtask extends Task {
     private int epicId; 
     
@@ -6,13 +6,7 @@ public class Subtask extends Task {
         super(name, description, status);
         this.epicId = epic;
     }
-     
-//     public void doUpdateSubtask(String name, String description,TaskStatus status){
-//        this.setName(name); 
-//        this.setDescription(description);
-//        this.setStatus(status);
-//    }
-//     
+         
     public Subtask(String name, String description, int epic) {
         super(name, description);
         this.epicId = epic;
@@ -22,7 +16,4 @@ public class Subtask extends Task {
          return this.epicId;
      }
             
-//    public void setEpicId(int epicId){
-//        this.epicId = epicId;
-//    }
 }
