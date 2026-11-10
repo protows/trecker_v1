@@ -1,6 +1,6 @@
 package trecker.v1;
 import java.util.ArrayList;
-
+//https://github.com/practicetasks/java-task-tracker
 public class Main2 {
     public static void main(String[] args) {
         TaskManager manager = new TaskManager();
@@ -94,7 +94,6 @@ public class Main2 {
                 + manager.getAllEpics().size() + "/" + manager.getAllSubtasks().size());
 
     }
-
     private static void printAll(TaskManager manager) {
         System.out.println("Задачи: " + manager.getAllTasks());
         System.out.println("Эпики: " + manager.getAllEpics());
