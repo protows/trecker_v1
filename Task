@@ -9,7 +9,13 @@ public class Task {
     private String description;
     private int taskid;
     private TaskStatus status;
-    
+    public Task(int taskid, String name, String description, TaskStatus status) {
+        this.taskid = taskid;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+ 
     public Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;
@@ -21,23 +27,11 @@ public class Task {
         this.description = description;
         this.status = TaskStatus.NEW;
     }
-
-
-    public void doUpdateTask(String name, String description,TaskStatus status){
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
             
     public void setTaskid(int taskid) {
         if(taskid!=0){
             this.taskid = taskid;
-        }
-        
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
+        }  
     }
     
     public String getName() {
@@ -55,5 +49,4 @@ public class Task {
     public TaskStatus getStatus() {
         return status;
     }
-    
 }
