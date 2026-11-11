@@ -65,7 +65,11 @@ public class TaskManager {
         }
    }
    public void removeEpicById(int id){
-       clearSubtaskIds(id);
+        ArrayList<Subtask> result2 = getSubtasksOfEpic(id);
+       for(int i=0; i< result2.size(); i++){
+           Subtask subTask2 = result2.get(i);
+           deleteSubtaskById(subTask2);
+       }
        epics.remove(id);
    }
    
