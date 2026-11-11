@@ -48,7 +48,8 @@ public class TaskManager {
     
     // --- Методы для эпиков ---
     public void removeAllEpics(){
-        epics.clear();
+        subtasks.clear(); 
+             epics.clear();
     }
     public ArrayList<Epic> getAllEpics(){
          return new ArrayList<>(epics.values()); 
@@ -65,7 +66,7 @@ public class TaskManager {
         }
    }
    public void removeEpicById(int id){
-           ArrayList<Integer> subtaskIds = epics.get(id).getAllIdsSubsTaksOfEpic();
+       ArrayList<Integer> subtaskIds = epics.get(id).getAllIdsSubsTaksOfEpic();
        for(int i=0; i< subtaskIds.size(); i++){
            subtasks.remove(subtaskIds.get(i));
        }
