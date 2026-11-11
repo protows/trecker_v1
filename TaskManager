@@ -89,10 +89,10 @@ public class TaskManager {
        }
        
        subtaskIds.clear();
-         Epic epic = epics.get(epicid);
-         if(epic!=null){
-              epics.get(epicid).getAllIdsSubsTaksOfEpic().clear();
-         }
+//         Epic epic = epics.get(epicid);
+//         if(epic!=null){
+//              epics.get(epicid).getAllIdsSubsTaksOfEpic().clear();
+//         }
      
          
         
