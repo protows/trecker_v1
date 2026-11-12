@@ -1,14 +1,11 @@
 package trecker.v1;
-
 import java.util.HashMap;
 import java.util.ArrayList;
-
 public class TaskManager {
     private HashMap<Integer, Task> tasks;
     private HashMap<Integer, Epic> epics;
     private HashMap<Integer, Subtask> subtasks;
     private int generatorId=1;
-    
     public TaskManager() {
         tasks = new HashMap<>();
         epics = new HashMap<>();
@@ -87,18 +84,10 @@ public class TaskManager {
        for(int i=0; i< subtaskIds.size(); i++){
            subtasks.remove(subtaskIds.get(i));
        }
-       
-       subtaskIds.clear();
-//         Epic epic = epics.get(epicid);
-//         if(epic!=null){
-//              epics.get(epicid).getAllIdsSubsTaksOfEpic().clear();
-//         }
-     
-         
-        
+       subtaskIds.clear();        
     }
-    /////////
-
+     
+     ////////////
     // --- Методы для подзадач -------------------
     public ArrayList<Subtask> getAllSubtasks( ) { 
        
@@ -121,19 +110,22 @@ public class TaskManager {
         return subtasks.get(id);
     }
     public void createSubtask(Subtask subtask) {
+        Epic epic = epics.get(subtask.getEpicId());
+        if(epic==null){
+            return;
+        }
         int id = generatorId++; // Генерируем уникальный ID
         if (subtasks.containsKey(id)) {
             return;
         }
         subtask.setTaskid(id);
         subtasks.put(id, subtask);
-        epics.get(id).getAllIdsSubsTaksOfEpic().add(subtask.getEpicId());
-        //addSubtaskId(id, subtask.getEpicId());
+        epic.getAllIdsSubsTaksOfEpic().add(id);
+        updateEpicStatus(epic.getTaskid());
     }
     public void updateSubtask(Subtask subTaskItem) {
         int id = subTaskItem.getTaskid();
         subtasks.put(id, subTaskItem);
-        updateEpicStatus(subTaskItem.getEpicId());
     }
     public void deleteSubtaskById(Subtask subTaskItem) {
         epics.get(subTaskItem.getEpicId()).getAllIdsSubsTaksOfEpic().remove(subTaskItem.getTaskid());
