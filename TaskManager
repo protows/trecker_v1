@@ -194,7 +194,7 @@ public class TaskManager {
                newStatus = TaskStatus.IN_PROGRESS;
             }
         }
-    Epic updatedEpic = new Epic(epics.get(epicId).getName(), epicIdCommon.getDescription(), newStatus);
+    Epic updatedEpic = new Epic(epicIdCommon.getName(), epicIdCommon.getDescription(), newStatus);
     updatedEpic.setTaskid(epicId); //.setTaskId(epics.get(epicId).getTaskid());
     for (int subId : epicIdCommon.getAllIdsSubsTaksOfEpic()) {
         updatedEpic.getAllIdsSubsTaksOfEpic().add(subId);
