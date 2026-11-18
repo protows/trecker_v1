@@ -14,7 +14,7 @@ public class TaskManager {
     
     // --- Методы для обычных задач ---
     public ArrayList<Task> getAllTasks() { 
-        if(subtasks !=null){
+        if(tasks !=null){
             return new ArrayList<>(subtasks.values());
         }else{
            return new ArrayList<>(tasks.values());
@@ -54,7 +54,7 @@ public class TaskManager {
              epics.clear();
     }
     public ArrayList<Epic> getAllEpics(){
-        if(subtasks !=null){
+        if(epics !=null){
                      return new ArrayList<>(epics.values()); 
 
         }else{
