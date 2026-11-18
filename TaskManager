@@ -114,6 +114,7 @@ public class TaskManager {
         for(Epic epic: epics.values()){
             epic.getAllIdsSubsTaksOfEpic().clear();
             Epic epic2 = new Epic(epic.getName(), epic.getDescription(), TaskStatus.NEW);
+            epic.setTaskid(epic.getTaskid());
             epics.put(epic.getTaskid(), epic2);
         }
         subtasks.clear();
