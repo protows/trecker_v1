@@ -166,7 +166,8 @@ public class TaskManager {
     }
     
     private void updateEpicStatus(int epicId) {
-    ArrayList<Integer> subtaskIds = epics.get(epicId).getAllIdsSubsTaksOfEpic();
+        Epic  epicIdCommon =  epics.get(epicId);
+    ArrayList<Integer> subtaskIds = epicIdCommon.getAllIdsSubsTaksOfEpic();
     TaskStatus newStatus;
         if (subtaskIds.isEmpty()) {
             newStatus = TaskStatus.NEW;
@@ -193,9 +194,9 @@ public class TaskManager {
                newStatus = TaskStatus.IN_PROGRESS;
             }
         }
-    Epic updatedEpic = new Epic(epics.get(epicId).getName(), epics.get(epicId).getDescription(), newStatus);
+    Epic updatedEpic = new Epic(epics.get(epicId).getName(), epicIdCommon.getDescription(), newStatus);
     updatedEpic.setTaskid(epicId); //.setTaskId(epics.get(epicId).getTaskid());
-    for (int subId : epics.get(epicId).getAllIdsSubsTaksOfEpic()) {
+    for (int subId : epicIdCommon.getAllIdsSubsTaksOfEpic()) {
         updatedEpic.getAllIdsSubsTaksOfEpic().add(subId);
     }
     epics.put(updatedEpic.getTaskid(), updatedEpic);
