@@ -14,7 +14,12 @@ public class TaskManager {
     
     // --- Методы для обычных задач ---
     public ArrayList<Task> getAllTasks() { 
-        return new ArrayList<>(tasks.values());
+        if(subtasks !=null){
+            return new ArrayList<>(subtasks.values());
+        }else{
+           return new ArrayList<>(tasks.values());
+
+        }
      }
     public void deleteAllTasks() {
         tasks.clear();
@@ -49,7 +54,13 @@ public class TaskManager {
              epics.clear();
     }
     public ArrayList<Epic> getAllEpics(){
-         return new ArrayList<>(epics.values()); 
+        if(subtasks !=null){
+                     return new ArrayList<>(epics.values()); 
+
+        }else{
+            return new ArrayList<>();
+        }
+        
      }
     
     public Epic getEpicById(int id){
