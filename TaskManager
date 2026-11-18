@@ -139,7 +139,7 @@ public class TaskManager {
     }
     public void updateSubtask(Subtask subTaskItem) {
         int id = subTaskItem.getTaskid();
-         if (epics.containsKey(id)) {
+         if (subtasks.containsKey(id)) {
         subtasks.put(id, subTaskItem);
         }
         
