@@ -61,6 +61,7 @@ public class TaskManager {
         if (epics.containsKey(id)) {
             epics.put(id, epic);
         }
+        updateEpicStatus(id);
    }
    public void removeEpicById(int id){
        ArrayList<Integer> subtaskIds = epics.get(id).getAllIdsSubsTaksOfEpic();
